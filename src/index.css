@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap');
+@import "tailwindcss";
+
+:root {
+  font-family: "Raleway", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@theme {
+  --color-white-base2: #EDEFEF;
+  --color-white-light: #FFFAFA;
+  --color-white-base: #F0EFE7;
+  --color-white-base3: #F0EBE3;
+  --color-white-platinum: #E5E5E5;
+  --color-text-grey: #BDBDBD;
+  --color-text-coldgrey: #B0B0B0;
+  --color-jet-black: #1A1A1A;
+  --color-stone-base: #44403b;
+}
+
+.title {
+  font-family: "Yeseva One", sans-serif;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-family: Yeseva One, sans-serif;
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--color-jet-black);
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
