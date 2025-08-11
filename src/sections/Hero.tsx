@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
-import ButtonBookCall from "../components/ui/ButtonBookCall";
-import TextType from "../components/ui/TextType";
+import ButtonBookCall from "@/components/ui/ButtonBookCall";
+import TextType from "@/components/ui/TextType";
 
 const Hero = () => {
   const [showContent, setShowContent] = useState(false);
@@ -16,7 +16,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="fixed inset-0 w-screen h-screen overflow-hidden bg-jet-black">
+    <section className="relative w-full h-screen bg-jet-black sticky top-0 z-0">
       {/* White layer effect */}
       <motion.div
         initial={{ height: "0%" }}
@@ -36,7 +36,7 @@ const Hero = () => {
                 showCursor={true}
                 cursorCharacter="|"
                 variableSpeed={{ min: 130, max: 240 }}
-                className="text-5xl md:text-7xl tracking-tight title text-jet-black"
+                className="text-5xl md:text-8xl tracking-tight title text-jet-black"
                 textColors={["text-jet-black"]}
                 initialDelay={2000}
               />
@@ -79,7 +79,7 @@ const Hero = () => {
                   duration: 0.8,
                   ease: [0.76, 0, 0.24, 1],
                 }}
-                className="mt-16 h-40 w-40 md:h-60 md:w-60 rounded-xl bg-gradient-to-br from-stone-200 to-stone-400 flex items-center justify-center text-stone-600 text-lg  shadow-lg"
+                className="mt-16 h-40 w-40 md:h-60 md:w-60 rounded-xl bg-gradient-to-br from-stone-200 to-stone-400 flex items-center justify-center text-stone-600 text-lg shadow-lg"
               >
                 (3D Model)
               </motion.div>
