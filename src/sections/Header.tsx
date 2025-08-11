@@ -13,35 +13,40 @@ const Header = () => {
 
   return (
     <>
-      {/* DESKTOP NAV – only visible on md+ and before scroll */}
-      {!scrolled && (
-        <motion.header
-          animate={{ opacity: scrolled ? 0 : 1 }}
-          transition={{ duration: 0.3 }}
-          className="fixed top-0 left-0 w-full z-40 py-6 hidden md:flex items-center justify-center"
+      {/* DESKTOP NAV – always rendered */}
+      <motion.header
+        initial={{ y: 0 }}
+        animate={{ y: scrolled ? -100 : 0, opacity: scrolled ? 0 : 1 }}
+        transition={{ duration: 0.6 }}
+        className="fixed top-0 left-0 w-full z-40 py-6 hidden md:flex items-center justify-center"
+      >
+        <motion.nav
+          initial={{ opacity: 0, y: -100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2, duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         >
-          <nav>
-            <ul className="flex space-x-8 text-xl">
-              {nav.map(({ href, text }) => (
-                <li key={text}>
-                  <a href={href} className="relative px-8 py-3 text-jet-black font-semibold uppercase group">
-                    <span className="relative z-10 group-hover:text-white">{text}</span>
-                    <span className="absolute inset-0 bg-jet-black rounded-full scale-0 group-hover:scale-100 transition-transform -z-10" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </motion.header>
-      )}
+          <ul className="flex space-x-8 text-xl">
+            {nav.map(({ href, text }) => (
+              <li key={text}>
+                <a href={href} className="relative px-8 py-3 text-jet-black font-semibold uppercase group">
+                  <span className="relative z-10 group-hover:text-white-platinum">{text}</span>
+                  <span className="absolute inset-0 bg-jet-black rounded-full scale-0 group-hover:scale-100 transition-transform duration-400 ease-out -z-10" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </motion.nav>
+      </motion.header>
 
-      {/* HAMBURGER – always rendered, but hidden until scrolled or on mobile */}
+      {/* HAMBURGER – always rendered */}
+
       <motion.div
-        initial={{ opacity: 0 }}
+        initial={{ opacity: 0.5, y: -100 }}
         animate={{
           opacity: scrolled || window.innerWidth < 768 ? 1 : 0,
+          y: scrolled || window.innerWidth < 768 ? 0 : -100,
         }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.6 }}
         className="fixed top-0 left-0 w-full z-50"
         style={{ pointerEvents: scrolled || window.innerWidth < 768 ? "auto" : "none" }}
       >
