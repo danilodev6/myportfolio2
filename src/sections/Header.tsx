@@ -43,7 +43,7 @@ const Header = () => {
       <motion.div
         initial={{ opacity: 0.5, y: -100 }}
         animate={{
-          opacity: scrolled || window.innerWidth < 768 ? 1 : 0,
+          opacity: scrolled || window.innerWidth < 768 ? 1 : 1,
           y: scrolled || window.innerWidth < 768 ? 0 : -100,
         }}
         transition={{ duration: 0.6 }}
