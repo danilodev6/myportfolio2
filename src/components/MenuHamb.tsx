@@ -65,7 +65,7 @@ const MenuHamb = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2, duration: 0.8, ease: [0.76, 0, 0.24, 1] as [number, number, number, number] }}
         onClick={toggleMenu}
-        className="fixed top-6 right-6 md:top-10 md:right-20 z-[70] w-13 h-13 flex flex-col justify-center items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20"
+        className="fixed button top-6 right-6 md:top-10 md:right-20 z-[70] w-13 h-13 flex flex-col justify-center items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20"
         aria-label="Toggle menu"
       >
         <motion.span

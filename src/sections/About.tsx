@@ -27,7 +27,7 @@ const About = () => {
             Web Developer
           </h2>
           <h2 className="text-3xl md:text-6xl font-bold tracking-tight text-white-platinum leading-tight mb-8 md:mb-16">
-            Blockchain Developer
+            Blockchain Developer /
           </h2>
         </motion.div>
 

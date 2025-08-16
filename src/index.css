@@ -51,6 +51,7 @@ body::-webkit-scrollbar {
   --color-text-grey: #BDBDBD;
   --color-text-coldgrey: #B0B0B0;
   --color-jet-black: #1A1A1A;
+  --color-jet-black2: #232323;
   --color-stone-base: #44403b;
 }
 
@@ -69,12 +70,15 @@ a {
 }
 
 button {
-  border-radius: 8px;
-  padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--color-jet-black);
   cursor: pointer;
+}
+
+.button {
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  background-color: var(--color-jet-black);
   transition: border-color 0.25s;
 }

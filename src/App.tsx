@@ -1,6 +1,7 @@
 import "./App.css";
 import { useMomentumScroll } from "./hooks/useMomentumScroll";
 import About from "./sections/About";
+import { Contact } from "./sections/Contact";
 import Footer from "./sections/Footer";
 import Header from "./sections/Header";
 import Hero from "./sections/Hero";
@@ -19,6 +20,7 @@ function App() {
       <Hero />
       <About />
       <Projects />
+      <Contact />
       <Footer />
     </>
   );
