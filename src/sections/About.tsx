@@ -64,7 +64,7 @@ const About = () => {
           <div className="space-y-8 mb-10 max-w-2xl">
             <p className="text-base md:text-lg leading-relaxed font-normal text-white-base">
               An enthusiastic developer specializing in both front-end and back-end development, currently exploring
-              Solidity and blockchain technologies. I build clean, responsive, and scalable applications with a focus on
+              Solidity and Blockchain technologies. I build clean, responsive, and scalable applications with a focus on
               performance, usability, and real-world impact.
             </p>
             <p className="text-base md:text-lg leading-relaxed font-normal text-white-base">
