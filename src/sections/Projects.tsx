@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useId, useRef } from "react";
 import ScrollStack, { ScrollStackItem } from "@/components/ui/ScrollStack";
+import { useScrollY } from "@/hooks/useScrollY";
 
 const projectsData = [
   {
@@ -52,6 +53,13 @@ export const Projects = () => {
   // Header animation
   const headerOpacity = useTransform(sectionProgress, [0, 0.05], [0, 1]);
 
+  // Animated text that disappears when first card appears - longer duration
+  const animatedTextOpacity = useTransform(sectionProgress, [0.02, 0.25], [1, 0]);
+  const animatedTextY = useTransform(sectionProgress, [0.02, 0.25], [0, -30]);
+
+  const scrolled = useScrollY(4680);
+  const scrolled2 = useScrollY(2470);
+
   return (
     <section ref={sectionRef} id={sectionId} className="relative w-full bg-jet-black z-10 rounded-b-4xl">
       {/* Sticky Header */}
@@ -63,26 +71,72 @@ export const Projects = () => {
       >
         <div className="max-w-6xl mb-8 mx-auto px-6 md:px-12 py-4 md:py-6">
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            animate={{ opacity: scrolled || window.innerWidth < 768 ? 0 : 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1 }}
             className="flex items-end gap-4"
           >
-            <h2 className="text-3xl md:text-6xl font-bold tracking-tight text-white-platinum leading-tight">
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 1.5 }}
+              className="text-3xl md:text-6xl font-bold tracking-tight text-white-platinum leading-tight"
+            >
               SELECTED WORKS /
-            </h2>
+            </motion.h2>
             <motion.p
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 0.6, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 1.2, delay: 1.5 }}
               className="text-lg md:text-2xl font-medium mb-8 uppercase tracking-widest text-white-platinum"
             >
               (0{projectsData.length})
             </motion.p>
           </motion.div>
         </div>
+      </motion.div>
+
+      {/* Animated Filler Text - Big Background Style */}
+      <motion.div
+        animate={{ opacity: scrolled2 || window.innerWidth < 768 ? 0 : 1 }}
+        transition={{ duration: 1.5 }}
+        className="sticky flex w-[60%] ml-[40%] top-[27%] z-15 pointer-events-none"
+      >
+        {/* Huge faint PROJECTS behind everything */}
+        <motion.h3
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 0.04, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, delay: 1.5 }}
+          className="hidden md:block absolute top-[13rem] left-[-10%] transform -translate-x-1/2 md:text-[12rem] title font-extrabold tracking-tight leading-none select-none text-white-platinum pointer-events-none"
+        >
+          PROJECTS
+        </motion.h3>
+
+        {/* Subtle scroll indicator */}
+        <motion.p
+          className="text-sm md:text-xl text-white-platinum/40 font-light tracking-widest uppercase mt-1"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, delay: 1.5 }}
+        >
+          (Scroll to explore)
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 1.2 }}
+          className="max-w-2xl text-lg md:text-2xl font-light leading-relaxed text-white-base mb-16 md:ml-4 md:mb-20 relative z-10"
+        >
+          Featured projects that have been thoughtfully developed to combine functionality, performance, and design.
+          Each solution demonstrates a balance between technical expertise and strategic thinking, showcasing the
+          ability to deliver reliable, scalable, and impactful results. These works reflect a commitment to excellence
+          and a focus on creating meaningful value for both users and businesses.
+        </motion.p>
       </motion.div>
 
       {/* ScrollStack Container */}

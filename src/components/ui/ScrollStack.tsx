@@ -16,7 +16,7 @@ interface ScrollStackProps {
   itemHeight?: string;
 }
 
-const ScrollStack = ({ children, className = "", itemHeight = "calc(100vh - 130px)" }: ScrollStackProps) => {
+const ScrollStack = ({ children, className = "", itemHeight = "calc(100vh - 90px)" }: ScrollStackProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -27,13 +27,13 @@ const ScrollStack = ({ children, className = "", itemHeight = "calc(100vh - 130p
   const totalItems = items.length;
 
   return (
-    <div ref={containerRef} className={`relative ${className}`} style={{ height: `${totalItems * 110}vh` }}>
+    <div ref={containerRef} className={`relative ${className}`} style={{ height: `${totalItems * 80}vh` }}>
       {/* Sticky container */}
       <div
         className="sticky w-full overflow-visible"
         style={{
           height: itemHeight,
-          top: "100px",
+          top: "130px",
           zIndex: 25,
         }}
       >
@@ -62,24 +62,20 @@ interface ScrollStackCardProps {
   scrollYProgress: any;
 }
 
-const ScrollStackCard = ({ children, index, scrollYProgress }: ScrollStackCardProps) => {
-  // First card appears immediately, others have slower progression
-  const progressStart = index === 0 ? 0 : index * 0.15;
-  const progressEnd = index === 0 ? 0.05 : progressStart + 0.12;
+const ScrollStackCard = ({ children, index, totalItems, scrollYProgress }: ScrollStackCardProps) => {
+  // Sequential progression - each card starts when previous one finishes
+  const progressStart = index * 0.2;
+  const progressEnd = progressStart + 0.2;
 
-  // Y transform - first card starts visible, others slide up
-  const y = useTransform(scrollYProgress, [progressStart, progressEnd], index === 0 ? ["0%", "0%"] : ["100%", "0%"]);
+  // Y transform - cards slide up from bottom
+  const y = useTransform(scrollYProgress, [progressStart, progressEnd], ["100%", "0%"]);
 
-  // Visibility - first card is immediately visible
-  const display = useTransform(
-    scrollYProgress,
-    [progressStart - (index === 0 ? 0 : 0.05), progressStart],
-    [index === 0 ? 1 : 0, 1],
-  );
+  // Visibility - fade in at the start of each card's animation
+  const display = useTransform(scrollYProgress, [progressStart - 0.02, progressStart], [0, 1]);
 
   return (
     <motion.div
-      className="absolute inset-0 w-full h-full bg-jet-black2 rounded-4xl border-t border-white/10"
+      className="absolute inset-0 w-[85%] mx-auto h-[85%] bg-jet-black2 rounded-4xl border-t border-white/10"
       style={{
         y,
         opacity: display,

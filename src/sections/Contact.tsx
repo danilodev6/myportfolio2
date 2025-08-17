@@ -14,7 +14,9 @@ export const Contact = () => {
           transition={{ duration: 0.8 }}
           className="relative z-10"
         >
-          <h2 className="text-5xl md:text-6xl font-bold tracking-tight text-jet-black leading-tight">BOOK A CALL /</h2>
+          <h2 className="text-5xl md:text-6xl font-bold tracking-tight text-jet-black leading-tight">
+            Let's Make it happen /
+          </h2>
         </motion.div>
 
         {/* Intro paragraph */}
@@ -32,7 +34,7 @@ export const Contact = () => {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="max-w-2xl text-3xl md:text-4xl font-light leading-relaxed text-jet-black relative z-10"
           >
-            Let's make it happen!
+            Get in touch! You can reach me via email
           </motion.p>
 
           {/* (ABOUT ME) label + paragraphs */}
