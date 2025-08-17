@@ -62,7 +62,7 @@ interface ScrollStackCardProps {
   scrollYProgress: any;
 }
 
-const ScrollStackCard = ({ children, index, totalItems, scrollYProgress }: ScrollStackCardProps) => {
+const ScrollStackCard = ({ children, index, scrollYProgress }: ScrollStackCardProps) => {
   // Sequential progression - each card starts when previous one finishes
   const progressStart = index * 0.2;
   const progressEnd = progressStart + 0.2;
