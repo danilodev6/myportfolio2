@@ -1,8 +1,31 @@
 const ButtonBookCall = () => {
+  const handleBookCall = () => {
+    const email = "danilo.dev6@gmail.com";
+    const subject = "Let's discuss a potential collaboration";
+    const body = `Hi Danilo,
+
+I came across your portfolio and I'm impressed by your work! I'd love to discuss a potential project/collaboration opportunity.
+
+Could we schedule a call to talk about:
+- Project requirements and scope
+- Timeline and availability
+- Budget and terms
+
+Looking forward to hearing from you.
+
+Best regards,`;
+
+    // Create mailto URL with encoded parameters
+    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Open the user's default email client
+    window.location.href = mailtoUrl;
+  };
+
   return (
     <button
       type="button"
-      onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+      onClick={handleBookCall}
       className="group relative flex md:min-w-[280px] h-fit w-fit items-center justify-center overflow-hidden bg-stone-800 px-8 py-4 tracking-wider text-white-platinum transition-all duration-500"
       style={{ borderRadius: "50px" }}
     >

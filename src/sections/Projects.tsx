@@ -126,7 +126,7 @@ export const Projects = () => {
         <ScrollStack itemHeight="calc(110vh - 120px)">
           {projectsData.map((project) => (
             <ScrollStackItem key={project.id}>
-              <div className="max-w-6xl mx-auto md:px-6 md:px-12">
+              <div className="max-w-6xl mx-auto px-6 md:px-12">
                 <div className="flex flex-col justify-between h-full">
                   {/* Project Header */}
                   <div className="flex justify-between items-start mb-6 md:mb-8">
