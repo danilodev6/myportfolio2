@@ -20,7 +20,7 @@ const About = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 1.5 }}
+          transition={{ duration: 1, delay: 1.5 }}
           className="relative z-10"
         >
           <h2 className="text-3xl md:text-6xl font-bold tracking-tight text-white-platinum leading-tight">
@@ -33,10 +33,10 @@ const About = () => {
 
         {/* Intro paragraph */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 1.5 }}
+          transition={{ duration: 1, delay: 1.5 }}
           className="max-w-2xl text-lg md:text-2xl font-light leading-relaxed text-white-base mb-16 md:ml-20 relative z-10"
         >
           With a passion for building innovative applications, I take projects from concept to deployment, ensuring a
@@ -46,10 +46,10 @@ const About = () => {
 
         {/* (ABOUT ME) label + paragraphs */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 1.5 }}
+          transition={{ duration: 1, delay: 1.5 }}
           className="relative z-10 flex flex-col md:flex-row max-w-5xl md:ml-10 gap-4 md:gap-8"
         >
           {/* Label */}
