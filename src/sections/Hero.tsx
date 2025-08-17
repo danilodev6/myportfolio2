@@ -45,23 +45,38 @@ function RabbitModel() {
 const Hero = () => {
   const [showContent, setShowContent] = useState(false);
   const [show3D, setShow3D] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Mobile detection function
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Check on mount
+    checkIsMobile();
+
+    // Add resize listener
+    window.addEventListener("resize", checkIsMobile);
+
     // Show content after expansion completes
     const contentTimeout = setTimeout(() => {
       setShowContent(true);
     }, 1700);
 
-    // Show 3D model after content is visible
+    // Show 3D model after content is visible (only if not mobile)
     const modelTimeout = setTimeout(() => {
-      setShow3D(true);
+      if (!isMobile) {
+        setShow3D(true);
+      }
     }, 2500);
 
     return () => {
       clearTimeout(contentTimeout);
       clearTimeout(modelTimeout);
+      window.removeEventListener("resize", checkIsMobile);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <section className="relative w-full h-screen bg-jet-black sticky top-0 z-0">
@@ -74,7 +89,7 @@ const Hero = () => {
         style={{ transformOrigin: "top" }}
       >
         {/* Content */}
-        <div className="w-full h-full flex flex-col mt-[-20%] items-center justify-center text-center px-4 relative">
+        <div className="w-full h-full flex flex-col items-center justify-center text-center px-4 relative">
           {showContent && (
             <>
               {/* Name */}
@@ -112,15 +127,15 @@ const Hero = () => {
                   duration: 1.1,
                   ease: [0.76, 0, 0.24, 1],
                 }}
-                className="mt-10 mb-4"
+                className="mt-10"
               >
                 <ButtonBookCall />
               </motion.div>
             </>
           )}
 
-          {/* 3D Rabbit - Absolutely positioned at bottom */}
-          {show3D && (
+          {/* 3D Rabbit - Absolutely positioned at bottom, hidden on mobile */}
+          {!isMobile && show3D && (
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
@@ -129,7 +144,7 @@ const Hero = () => {
                 duration: 1.1,
                 ease: [0.76, 0, 0.24, 1],
               }}
-              className="absolute bottom-10 md:bottom-0 left-0 right-0 h-[350px] md:h-[400px] w-full pointer-events-none"
+              className="absolute bottom-0 left-0 right-0 h-[400px] w-full pointer-events-none"
             >
               <Canvas
                 camera={{
