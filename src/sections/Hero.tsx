@@ -89,7 +89,7 @@ const Hero = () => {
         style={{ transformOrigin: "top" }}
       >
         {/* Content */}
-        <div className="w-full h-full flex flex-col mt-[-20%] items-center justify-center text-center px-4 relative">
+        <div className="w-full h-full flex flex-col mt-[-15%] items-center justify-center text-center px-4 relative">
           {showContent && (
             <>
               {/* Name */}
