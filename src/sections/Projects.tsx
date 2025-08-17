@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import ScrollStack, { ScrollStackItem } from "@/components/ui/ScrollStack";
 import { projectsData } from "@/constants/projectsData.ts";
 import { useScrollY } from "@/hooks/useScrollY";
+import ProjectImageCarousel from "../components/ui/ProjectImageCarousel";
 
 export const Projects = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -125,7 +126,7 @@ export const Projects = () => {
         <ScrollStack itemHeight="calc(110vh - 120px)">
           {projectsData.map((project) => (
             <ScrollStackItem key={project.id}>
-              <div className="max-w-6xl mx-auto px-6 md:px-12">
+              <div className="max-w-6xl mx-auto md:px-6 md:px-12">
                 <div className="flex flex-col justify-between h-full">
                   {/* Project Header */}
                   <div className="flex justify-between items-start mb-6 md:mb-8">
@@ -160,25 +161,47 @@ export const Projects = () => {
                       ))}
                     </div>
 
-                    {/* Image Placeholder */}
-                    <div className="w-full h-32 md:h-40 bg-gradient-to-br from-white-platinum/5 to-white-platinum/20 rounded-2xl border border-white-platinum/10 flex items-center justify-center mb-8">
-                      <span className="text-white-platinum/40 text-lg">&lt;img/&gt;</span>
+                    {/* Image Container with Button - Desktop Layout */}
+                    <div className="hidden md:block mb-8">
+                      <div className="relative">
+                        {/* Updated ProjectImageCarousel with wider aspect ratio for desktop */}
+                        <div className="w-full h-64 md:h-80 rounded-2xl overflow-hidden">
+                          <ProjectImageCarousel projectId={project.id} className="!h-full" />
+                        </div>
+                        {/* Button positioned at bottom-right corner of image */}
+                        <div className="absolute bottom-4 right-4">
+                          <a href={project.link} target="_blank" rel="noopener noreferrer">
+                            <button
+                              type="button"
+                              className="group relative px-6 py-3 text-white-platinum font-medium uppercase tracking-wider text-sm transition-all duration-300 rounded-full"
+                            >
+                              <span className="relative z-10 group-hover:text-jet-black transition-colors duration-300">
+                                View Project →
+                              </span>
+                              <span className="absolute inset-0 bg-white-platinum transform scale-0 group-hover:scale-100 transition-transform duration-300 rounded-full"></span>
+                            </button>
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Project Footer */}
-                  <div className="flex sm:flex-row md:ml-auto items-center md:items-end pt-6">
-                    <a href={project.link} target="_blank" rel="noopener noreferrer">
-                      <button
-                        type="button"
-                        className="group relative px-6 py-3 text-white-platinum font-medium uppercase tracking-wider text-sm transition-all duration-300"
-                      >
-                        <span className="relative  z-10 group-hover:text-jet-black transition-colors duration-300">
-                          View Project →
-                        </span>
-                        <span className="absolute inset-0 bg-white-platinum transform scale-0 group-hover:scale-100 transition-transform duration-300 rounded-full"></span>
-                      </button>
-                    </a>
+                    {/* Mobile Layout - Image and Button Stacked */}
+                    <div className="md:hidden">
+                      <ProjectImageCarousel projectId={project.id} className="mb-6" />
+                      <div className="flex justify-center">
+                        <a href={project.link} target="_blank" rel="noopener noreferrer">
+                          <button
+                            type="button"
+                            className="group relative px-6 py-3 text-white-platinum font-medium uppercase tracking-wider text-sm transition-all duration-300"
+                          >
+                            <span className="relative z-10 group-hover:text-jet-black transition-colors duration-300">
+                              View Project →
+                            </span>
+                            <span className="absolute inset-0 bg-white-platinum transform scale-0 group-hover:scale-100 transition-transform duration-300 rounded-full"></span>
+                          </button>
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
