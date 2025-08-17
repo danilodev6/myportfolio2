@@ -9,6 +9,20 @@ const MenuHamb = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleNavClick = (href: string) => {
+    if (href === "#home") {
+      // Use the custom scroll to top function from momentum scroll hook
+      if ((window as any).customScrollToTop) {
+        (window as any).customScrollToTop();
+      } else {
+        // Fallback to native scroll if momentum scroll isn't active
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+    // For other links, let the anchor navigation work normally
+    toggleMenu();
+  };
+
   // Animation variants for the full-screen menu
   const menuVariants: Variants = {
     closed: {
@@ -101,6 +115,7 @@ const MenuHamb = () => {
             <nav className="text-center">
               <ul className="flex flex-col space-y-8">
                 {[
+                  { href: "#home", text: "Home" },
                   { href: "#about", text: "About" },
                   { href: "#projects", text: "Projects" },
                   { href: "#contact", text: "Contact" },
@@ -108,7 +123,12 @@ const MenuHamb = () => {
                   <motion.li key={item.text} custom={index} variants={itemVariants} initial="closed" animate="open">
                     <a
                       href={item.href}
-                      onClick={toggleMenu}
+                      onClick={(e) => {
+                        if (item.href === "#home") {
+                          e.preventDefault();
+                        }
+                        handleNavClick(item.href);
+                      }}
                       className="relative inline-block px-8 py-4 text-jet-black font-bold uppercase tracking-wider transition-colors duration-300 z-10 group text-4xl md:text-5xl"
                     >
                       <span className="relative z-10 transition-colors duration-300 group-hover:text-white">

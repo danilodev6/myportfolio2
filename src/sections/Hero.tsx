@@ -57,11 +57,11 @@ const Hero = () => {
 
               {/* Botón */}
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{
-                  delay: 0.7,
-                  duration: 0.8,
+                  delay: 0.8,
+                  duration: 1.1,
                   ease: [0.76, 0, 0.24, 1],
                 }}
                 className="mt-10"

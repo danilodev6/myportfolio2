@@ -1,49 +1,11 @@
-import { motion, useScroll } from "motion/react";
-import { useEffect, useId, useRef, useState } from "react";
+import { motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import ScrollStack, { ScrollStackItem } from "@/components/ui/ScrollStack";
+import { projectsData } from "@/constants/projectsData.ts";
 import { useScrollY } from "@/hooks/useScrollY";
-
-const projectsData = [
-  {
-    id: "defi-dashboard",
-    title: "DeFi Dashboard",
-    description: "A comprehensive DeFi analytics platform built with React and Web3 integration",
-    tech: ["React", "TypeScript", "Web3.js", "TailwindCSS"],
-    year: "2024",
-  },
-  {
-    id: "nft-marketplace",
-    title: "NFT Marketplace",
-    description: "Full-stack NFT marketplace with smart contracts and modern UI",
-    tech: ["Next.js", "Solidity", "IPFS", "Ethers.js"],
-    year: "2024",
-  },
-  {
-    id: "crypto-portfolio",
-    title: "Crypto Portfolio Tracker",
-    description: "Real-time cryptocurrency portfolio tracking with advanced analytics",
-    tech: ["React", "Node.js", "MongoDB", "CoinGecko API"],
-    year: "2023",
-  },
-  {
-    id: "dao-governance",
-    title: "DAO Governance Platform",
-    description: "Decentralized voting system with smart contract integration",
-    tech: ["React", "Solidity", "Hardhat", "The Graph"],
-    year: "2023",
-  },
-  {
-    id: "blockchain-explorer",
-    title: "Blockchain Explorer",
-    description: "Custom blockchain explorer with transaction analysis tools",
-    tech: ["Vue.js", "Express.js", "PostgreSQL", "Web3.py"],
-    year: "2023",
-  },
-];
 
 export const Projects = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const sectionId = useId();
   const [isMobile, setIsMobile] = useState(false);
 
   // Handle responsive detection properly
@@ -62,13 +24,13 @@ export const Projects = () => {
   const scrolled2 = useScrollY(isMobile ? 2400 : 2470);
 
   return (
-    <section ref={sectionRef} id={sectionId} className="relative w-full bg-jet-black z-10 rounded-b-4xl">
+    <section ref={sectionRef} id={"projects"} className="relative w-full bg-jet-black z-10 rounded-b-4xl">
       {/* Sticky Header - Disappears when scrolled on both mobile and desktop */}
       <motion.div className="sticky md:top-0 top-5 z-20 bg-jet-black rounded-b-4xl">
         <div className="max-w-6xl mb-8 mx-auto px-6 md:px-12 py-4 md:py-6">
           <motion.div
             className="flex items-end gap-4"
-            animate={{ opacity: scrolled ? 0 : 1 }}
+            whileInView={{ opacity: scrolled ? 0 : 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
           >
@@ -82,8 +44,8 @@ export const Projects = () => {
               SELECTED WORKS /
             </motion.h2>
             <motion.p
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 0.6, scale: 1 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 0.6, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, delay: isMobile ? 0.3 : 1.5 }}
               className="text-lg md:text-2xl font-medium md:mb-8 mb-2 uppercase tracking-widest text-white-platinum"
@@ -97,15 +59,15 @@ export const Projects = () => {
       {/* Sticky Content Section - Both description and scroll indicator */}
       <motion.div
         className="sticky top-50 z-15 bg-jet-black"
-        animate={{ opacity: scrolled2 ? 0 : 1 }}
+        whileInView={{ opacity: scrolled2 ? 0 : 1 }}
         transition={{ duration: 1.5 }}
       >
-        <div className="md:flex md:ml-[33%] max-w-6xl mx-auto pb-16 ">
+        <div className="md:flex px-6 md:ml-[33%] max-w-6xl mx-auto pb-16 ">
           {/* Scroll indicator - visible on both mobile and desktop */}
           <motion.p
-            className="text-sm md:text-xl md:mt-1 md:mr-2 text-white-platinum/40 font-light tracking-widest uppercase"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="text-sm text-right md:text-xl mb-2 md:mt-1 md:mr-2 text-white-platinum  font-medium tracking-widest uppercase"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 0.6, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.5, delay: isMobile ? 0.9 : 1.5 }}
           >
@@ -114,11 +76,11 @@ export const Projects = () => {
 
           {/* Description Text */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: isMobile ? 0.6 : 1.2 }}
-            className="max-w-2xl text-base md:text-2xl font-light leading-relaxed text-white-base mb-8 md:mb-12"
+            className="max-w-2xl text-base md:text-2xl leading-relaxed text-white-base mb-8 md:mb-12"
           >
             Featured projects that have been thoughtfully developed to combine functionality, performance, and design.
             Each solution demonstrates a balance between technical expertise and strategic thinking, showcasing the
@@ -132,12 +94,27 @@ export const Projects = () => {
       {!isMobile && (
         <motion.div
           initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: scrolled2 ? 0 : 0.04, x: 0 }}
+          whileInView={{ opacity: scrolled2 ? 0 : 0.04, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1.5 }}
           className="sticky w-[60%] ml-[40%] top-[27%] z-15 pointer-events-none"
         >
           <motion.h3 className="absolute top-[12rem] left-[-10%] transform -translate-x-1/2 text-[12rem] title font-extrabold tracking-tight leading-none select-none text-white-platinum pointer-events-none">
+            PROJECTS
+          </motion.h3>
+        </motion.div>
+      )}
+
+      {/* Mobile Background Text - Hidden on desktop */}
+      {isMobile && (
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: scrolled2 ? 0 : 0.04, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5 }}
+          className="sticky w-[60%] ml-[40%] top-[27%] z-15 pointer-events-none"
+        >
+          <motion.h3 className="absolute top-[22rem] left-[28%] transform -translate-x-1/2 text-[3.5rem] title font-extrabold tracking-tight leading-none select-none text-white-platinum pointer-events-none">
             PROJECTS
           </motion.h3>
         </motion.div>
@@ -190,22 +167,18 @@ export const Projects = () => {
                   </div>
 
                   {/* Project Footer */}
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-6 border-t border-white-platinum/10">
-                    <button
-                      type="button"
-                      className="group relative px-6 py-3 text-white-platinum font-medium uppercase tracking-wider text-sm transition-all duration-300"
-                    >
-                      <span className="relative z-10 group-hover:text-jet-black transition-colors duration-300">
-                        View Project
-                      </span>
-                      <span className="absolute inset-0 bg-white-platinum transform scale-0 group-hover:scale-100 transition-transform duration-300 rounded-full"></span>
-                    </button>
-                    <button
-                      type="button"
-                      className="text-white-platinum/60 hover:text-white-platinum transition-colors duration-300 text-sm uppercase tracking-widest"
-                    >
-                      Live Demo →
-                    </button>
+                  <div className="flex sm:flex-row md:ml-auto items-center md:items-end pt-6">
+                    <a href={project.link} target="_blank" rel="noopener noreferrer">
+                      <button
+                        type="button"
+                        className="group relative px-6 py-3 text-white-platinum font-medium uppercase tracking-wider text-sm transition-all duration-300"
+                      >
+                        <span className="relative  z-10 group-hover:text-jet-black transition-colors duration-300">
+                          View Project →
+                        </span>
+                        <span className="absolute inset-0 bg-white-platinum transform scale-0 group-hover:scale-100 transition-transform duration-300 rounded-full"></span>
+                      </button>
+                    </a>
                   </div>
                 </div>
               </div>

@@ -2,7 +2,10 @@ import { motion } from "framer-motion";
 
 const About = () => {
   return (
-    <section className="relative w-full min-h-screen bg-jet-black rounded-t-4xl flex items-center z-10 overflow-hidden">
+    <section
+      id={"about"}
+      className="relative w-full min-h-screen bg-jet-black rounded-t-4xl flex items-center z-10 overflow-hidden"
+    >
       {/* Huge faint ABOUT behind titles */}
       <motion.h2
         initial={{ opacity: 0, x: -50 }}
