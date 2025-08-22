@@ -1,8 +1,16 @@
 Minimalist Black & White Portfolio
-A personal portfolio built with a black & white, minimal aesthetic, smooth animations, and a clean layout to let the work speak for itself.
+My personal portfolio built with a black & white, minimal aesthetic, smooth animations, and a clean layout to let the work speak for itself.
 Designed to be fast, distraction-free, and responsive.
 
-✨ Features
+# Screenshots
+
+![Home Page](./public/homepage.png)
+
+![About Page](./public/aboutpage.png)
+
+![Projects Page](./public/projectspage.png)
+
+## ✨ Features
 ⚪ Black & white design for timeless clarity
 
 🎯 Minimal layout with precise typography
@@ -15,7 +23,7 @@ Designed to be fast, distraction-free, and responsive.
 
 ⚡ Built with Bun for lightning-fast dev experience
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 Bun – package manager & runtime
 
 React – UI library
@@ -24,9 +32,9 @@ Tailwind CSS – styling & responsive design
 
 Framer Motion – animations
 
-(Optional) Three.js / React Three Fiber – for 3D object
+Three.js / React Three Fiber – for 3D object
 
-🚀 Getting Started
+## 🚀 Getting Started
 bash
 # Install dependencies
 bun install
