@@ -1,8 +1,7 @@
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import ScrollStack, { ScrollStackItem } from "@/components/ui/ScrollStack";
 import { projectsData } from "@/constants/projectsData.ts";
-import { useScrollY } from "@/hooks/useScrollY";
 import ProjectImageCarousel from "../components/ui/ProjectImageCarousel";
 
 export const Projects = () => {
@@ -20,21 +19,21 @@ export const Projects = () => {
     return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
 
-  // Scroll thresholds - different for mobile and desktop
-  const scrolled = useScrollY(isMobile ? 4640 : 4680);
-  const scrolled2 = useScrollY(isMobile ? 2400 : 2470);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const hideHeader = useTransform(scrollYProgress, [0.1, 0.85], [1, 0]);
+  const hideHeader2 = useTransform(scrollYProgress, [0.1, 0.15], [1, 0]);
+  const hideHeader3 = useTransform(scrollYProgress, [0.1, 0.25], [0.04, 0]);
 
   return (
     <section ref={sectionRef} id={"projects"} className="relative w-full bg-jet-black z-10 rounded-b-4xl">
       {/* Sticky Header - Disappears when scrolled on both mobile and desktop */}
       <motion.div className="sticky md:top-0 top-5 z-20 bg-jet-black rounded-b-4xl">
         <div className="max-w-6xl mb-8 mx-auto px-6 md:px-12 py-4 md:py-6">
-          <motion.div
-            className="flex items-end gap-4"
-            whileInView={{ opacity: scrolled ? 0 : 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-          >
+          <motion.div className="flex items-end gap-4" style={{ opacity: hideHeader }}>
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -58,11 +57,7 @@ export const Projects = () => {
       </motion.div>
 
       {/* Sticky Content Section - Both description and scroll indicator */}
-      <motion.div
-        className="sticky top-50 z-15 bg-jet-black"
-        whileInView={{ opacity: scrolled2 ? 0 : 1 }}
-        transition={{ duration: 1.5 }}
-      >
+      <motion.div className="sticky top-50 z-15 bg-jet-black" style={{ opacity: hideHeader2 }}>
         <div className="md:flex px-6 md:ml-[33%] max-w-6xl mx-auto pb-16 ">
           {/* Scroll indicator - visible on both mobile and desktop */}
           <motion.p
@@ -94,11 +89,8 @@ export const Projects = () => {
       {/* Desktop Background Text - Hidden on mobile */}
       {!isMobile && (
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: scrolled2 ? 0 : 0.04, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5 }}
           className="sticky w-[60%] ml-[40%] top-[27%] z-15 pointer-events-none"
+          style={{ opacity: hideHeader3 }}
         >
           <motion.h3 className="absolute top-[12rem] left-[-10%] transform -translate-x-1/2 text-[12rem] title font-extrabold tracking-tight leading-none select-none text-white-platinum pointer-events-none">
             PROJECTS
@@ -109,10 +101,7 @@ export const Projects = () => {
       {/* Mobile Background Text - Hidden on desktop */}
       {isMobile && (
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: scrolled2 ? 0 : 0.04, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5 }}
+          style={{ opacity: hideHeader3 }}
           className="sticky w-[60%] ml-[40%] top-[27%] z-15 pointer-events-none"
         >
           <motion.h3 className="absolute top-[22rem] left-[28%] transform -translate-x-1/2 text-[3.5rem] title font-extrabold tracking-tight leading-none select-none text-white-platinum pointer-events-none">

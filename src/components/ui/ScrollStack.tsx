@@ -64,16 +64,28 @@ interface ScrollStackCardProps {
   scrollYProgress: any;
 }
 
-const ScrollStackCard = ({ children, index, scrollYProgress }: ScrollStackCardProps) => {
-  const progressStart = index * 0.2;
-  const progressEnd = progressStart + 0.2;
+const ScrollStackCard = ({ children, index, scrollYProgress, totalItems }: ScrollStackCardProps) => {
+  const segment = 1 / totalItems;
 
+  const progressStart = index * segment;
+  const progressEnd = progressStart + segment;
+
+  // Movimiento Y del card
   const y = useTransform(scrollYProgress, [progressStart, progressEnd], ["100%", "0%"]);
-  const opacity = useTransform(scrollYProgress, [progressStart - 0.02, progressStart], [0, 1]);
-  // Oculta visualmente cuando está fuera (reduce repintados de capas solapadas)
+
+  // Fade in rápido al entrar
+  const opacity = useTransform(scrollYProgress, [progressStart, progressStart + segment * 0.2], [0, 1]);
+
+  // Visibility: visible mientras el card está cubriendo parte de la pantalla.
+  // Lo extendemos un poco después del "end" para dar tiempo a que el siguiente lo tape.
   const visibility = useTransform(
     scrollYProgress,
-    [progressStart - 0.2, progressStart, progressEnd, progressEnd + 0.2],
+    [
+      progressStart - segment * 0.5, // antes de entrar: hidden
+      progressStart, // empieza a entrar: visible
+      progressEnd, // durante: visible
+      progressEnd + segment * 0.5 + 0.1, // después: hidden
+    ],
     ["hidden", "visible", "visible", "hidden"],
   );
 
