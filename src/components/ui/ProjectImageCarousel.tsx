@@ -11,13 +11,13 @@ const ProjectImageCarousel = ({ projectId, className = "" }: ProjectImageCarouse
   const [isVisible, setIsVisible] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
 
-  const projectImages = {
+  const projectImages: Record<string, string[]> = {
     "auction-app": ["/project1-1.png", "/project1-2.png", "/project1-3.png"],
     "supply-chain-dapp": ["/project2-1.png", "/project2-2.png", "/project2-3.png"],
     "crowdfunding-dapp": ["/project3-1.png", "/project3-2.png", "/project3-3.png", "/project3-4.png"],
     "portfolio-3d": ["/project4-1.png", "/project4-2.png", "/project4-3.png"],
     "movie-finder": ["/project5-1.png", "/project5-2.png"],
-  } as const;
+  };
 
   const images = projectImages[projectId as keyof typeof projectImages] || [];
 
