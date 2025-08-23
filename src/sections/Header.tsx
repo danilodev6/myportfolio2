@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import MenuHamb from "@/components/MenuHamb";
 import { useScrollY } from "@/hooks/useScrollY";
+import { useEffect, useState } from "react";
 
 const nav = [
   { href: "#about", text: "About" },
@@ -10,6 +11,14 @@ const nav = [
 
 const Header = () => {
   const scrolled = useScrollY(80);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   return (
     <>
@@ -42,13 +51,10 @@ const Header = () => {
 
       <motion.div
         initial={{ opacity: 0.5, y: -100 }}
-        animate={{
-          opacity: scrolled || window.innerWidth < 768 ? 1 : 1,
-          y: scrolled || window.innerWidth < 768 ? 0 : -100,
-        }}
+        animate={{ opacity: 1, y: scrolled || isMobile ? 0 : -100 }}
         transition={{ duration: 0.6 }}
         className="fixed top-0 left-0 w-full z-50"
-        style={{ pointerEvents: scrolled || window.innerWidth < 768 ? "auto" : "none" }}
+        style={{ pointerEvents: scrolled || isMobile ? "auto" : "none" }}
       >
         <MenuHamb />
       </motion.div>

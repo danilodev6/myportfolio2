@@ -10,16 +10,24 @@ const MenuHamb = () => {
   };
 
   const handleNavClick = (href: string) => {
-    if (href === "#home") {
-      // Use the custom scroll to top function from momentum scroll hook
+    const id = href.startsWith("#") ? href : `#${href}`;
+    const el = document.querySelector(id) as HTMLElement | null;
+
+    // 1) Si tu momentum ofrece customScrollTo, úsalo
+    if ((window as any).customScrollTo && el) {
+      const top = el.getBoundingClientRect().top + (window.scrollY || 0);
+      (window as any).customScrollTo(top);
+    } else if (href === "#home") {
+      // 2) Scroll al top
       if ((window as any).customScrollToTop) {
         (window as any).customScrollToTop();
       } else {
-        // Fallback to native scroll if momentum scroll isn't active
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
+    } else if (el) {
+      // 3) Fallback nativo si no hay momentum
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-    // For other links, let the anchor navigation work normally
     toggleMenu();
   };
 
@@ -124,9 +132,7 @@ const MenuHamb = () => {
                     <a
                       href={item.href}
                       onClick={(e) => {
-                        if (item.href === "#home") {
-                          e.preventDefault();
-                        }
+                        e.preventDefault();
                         handleNavClick(item.href);
                       }}
                       className="relative inline-block px-8 py-4 text-jet-black font-bold uppercase tracking-wider transition-colors duration-300 z-10 group text-4xl md:text-5xl"

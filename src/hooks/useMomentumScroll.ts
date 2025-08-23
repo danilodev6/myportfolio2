@@ -55,6 +55,40 @@ export const useMomentumScroll = (options: MomentumScrollOptions = {}) => {
       requestAnimationFrame(animateScroll);
     };
 
+    const scrollToY = (y: number) => {
+      scrollData.isNavigating = true;
+      const startPosition = scrollData.scrollY;
+      const distance = y - startPosition;
+      const duration = 1200;
+      const startTime = performance.now();
+
+      const animateScroll = () => {
+        const currentTime = performance.now();
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+        const currentPosition = startPosition + distance * easeInOutCubic(progress);
+
+        scrollData.scrollY = currentPosition;
+        scrollData.targetY = currentPosition;
+        scrollData.velocity = 0;
+
+        if (progress < 1) {
+          requestAnimationFrame(animateScroll);
+        } else {
+          scrollData.isNavigating = false;
+        }
+      };
+
+      requestAnimationFrame(animateScroll);
+    };
+
+    // Expose helpers globally
+    (window as any).customScrollTo = scrollToY;
+    (window as any).customScrollToTop = scrollToTop;
+
     // Expose scrollToTop globally for menu components
     (window as any).customScrollToTop = scrollToTop;
 
@@ -162,6 +196,9 @@ export const useMomentumScroll = (options: MomentumScrollOptions = {}) => {
 
       // Always apply scroll to window (whether navigating or using momentum)
       window.scrollTo(0, scrollData.scrollY);
+
+      (window as any).__virtualScrollY = scrollData.scrollY;
+      window.dispatchEvent(new CustomEvent<number>("vs", { detail: scrollData.scrollY }));
 
       requestAnimationFrame(animate);
     };
