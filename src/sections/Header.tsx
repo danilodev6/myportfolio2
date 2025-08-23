@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 import MenuHamb from "@/components/MenuHamb";
 import { useScrollY } from "@/hooks/useScrollY";
-import { useEffect, useState } from "react";
 
 const nav = [
   { href: "#about", text: "About" },
@@ -37,7 +37,22 @@ const Header = () => {
           <ul className="flex space-x-8 text-xl">
             {nav.map(({ href, text }) => (
               <li key={text}>
-                <a href={href} className="relative px-8 py-3 text-jet-black font-semibold uppercase group">
+                <a
+                  href={href}
+                  className="relative px-8 py-3 text-jet-black font-semibold uppercase group"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.querySelector(href);
+                    if (el) {
+                      const top = el.getBoundingClientRect().top + (window.scrollY || 0);
+                      if ((window as any).customScrollTo) {
+                        (window as any).customScrollTo(top);
+                      } else {
+                        el.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }
+                  }}
+                >
                   <span className="relative z-10 group-hover:text-white-platinum">{text}</span>
                   <span className="absolute inset-0 bg-jet-black rounded-full scale-0 group-hover:scale-100 transition-transform duration-400 ease-out -z-10" />
                 </a>

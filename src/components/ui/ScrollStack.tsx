@@ -27,8 +27,12 @@ const ScrollStack = ({ children, className = "", itemHeight = "calc(100vh - 90px
   const totalItems = items.length;
 
   return (
-    <div ref={containerRef} className={`relative ${className}`} style={{ height: `${totalItems * 80}vh` }}>
-      {/* Sticky container */}
+    <div
+      ref={containerRef}
+      className={`relative ${className}`}
+      // ⬇ de 80vh → 110vh por item (más colchón al final)
+      style={{ height: `${totalItems * 110}vh` }}
+    >
       <div
         className="sticky w-full overflow-visible"
         style={{
@@ -37,18 +41,16 @@ const ScrollStack = ({ children, className = "", itemHeight = "calc(100vh - 90px
           zIndex: 25,
         }}
       >
-        {items.map((child, index) => {
-          return (
-            <ScrollStackCard
-              key={`stack-item-${index}`}
-              index={index}
-              totalItems={totalItems}
-              scrollYProgress={scrollYProgress}
-            >
-              {child}
-            </ScrollStackCard>
-          );
-        })}
+        {items.map((child, index) => (
+          <ScrollStackCard
+            key={`stack-item-${index}`}
+            index={index}
+            totalItems={totalItems}
+            scrollYProgress={scrollYProgress}
+          >
+            {child}
+          </ScrollStackCard>
+        ))}
       </div>
     </div>
   );
@@ -63,23 +65,29 @@ interface ScrollStackCardProps {
 }
 
 const ScrollStackCard = ({ children, index, scrollYProgress }: ScrollStackCardProps) => {
-  // Sequential progression - each card starts when previous one finishes
   const progressStart = index * 0.2;
   const progressEnd = progressStart + 0.2;
 
-  // Y transform - cards slide up from bottom
   const y = useTransform(scrollYProgress, [progressStart, progressEnd], ["100%", "0%"]);
-
-  // Visibility - fade in at the start of each card's animation
-  const display = useTransform(scrollYProgress, [progressStart - 0.02, progressStart], [0, 1]);
+  const opacity = useTransform(scrollYProgress, [progressStart - 0.02, progressStart], [0, 1]);
+  // Oculta visualmente cuando está fuera (reduce repintados de capas solapadas)
+  const visibility = useTransform(
+    scrollYProgress,
+    [progressStart - 0.2, progressStart, progressEnd, progressEnd + 0.2],
+    ["hidden", "visible", "visible", "hidden"],
+  );
 
   return (
     <motion.div
-      className="absolute inset-0 w-[85%] mx-auto h-[85%] bg-jet-black2 rounded-4xl border-t border-white/10"
+      className="absolute inset-0 w-[85%] mx-auto h-[85%] bg-jet-black2 rounded-4xl border-t border-white/10 transform-gpu"
       style={{
         y,
-        opacity: display,
+        opacity,
+        visibility,
         zIndex: index + 1,
+        willChange: "transform, opacity",
+        contain: "layout paint size style",
+        backfaceVisibility: "hidden",
       }}
     >
       <div className="p-6 md:p-8 h-full flex flex-col justify-center">{children}</div>

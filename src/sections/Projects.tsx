@@ -124,7 +124,7 @@ export const Projects = () => {
       {/* ScrollStack Container */}
       <div className="relative z-30">
         <ScrollStack itemHeight="calc(110vh - 120px)">
-          {projectsData.map((project) => (
+          {projectsData.map((project, idx) => (
             <ScrollStackItem key={project.id}>
               <div className="max-w-6xl mx-auto px-6 md:px-12">
                 <div className="flex flex-col justify-between h-full">
@@ -138,7 +138,7 @@ export const Projects = () => {
                     </div>
                     <div className="text-right">
                       <span className="text-5xl md:text-7xl font-light text-white-platinum/20">
-                        {String(projectsData.findIndex((p) => p.id === project.id) + 1).padStart(2, "0")}
+                        {String(idx + 1).padStart(2, "0")}
                       </span>
                     </div>
                   </div>
