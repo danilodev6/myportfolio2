@@ -8,6 +8,14 @@ export const projectsData = [
     link: "https://github.com/danilodev6/auction-app",
   },
   {
+    id: "dex-dapp",
+    title: "DEX DApp web3",
+    description: "A DEX dApp built with Solidity and modern Web3 tooling, enabling trustless ERC-20 token swaps.",
+    tech: ["Solidity", "Viem", "Hardhat", "React"],
+    year: "2025",
+    link: "https://github.com/danilodev6/DEX-one",
+  },
+  {
     id: "supply-chain-dapp",
     title: "Supply Chain DApp web3",
     description: "A blockchain-based supply chain DApp for tracking and managing products transparently and securely",
@@ -31,13 +39,13 @@ export const projectsData = [
     year: "2024",
     link: "https://github.com/danilodev6/myportfolio",
   },
-  {
-    id: "movie-finder",
-    title: "Movie Finder",
-    description:
-      "A React Movie Finder app using the OMDb API to search and display movies with titles, posters, and release years",
-    tech: ["React", "TailwindCSS", "JavaScript", "OMDb API"],
-    year: "2024",
-    link: "https://github.com/danilodev6/Movie-Finder",
-  },
+  // {
+  //   id: "movie-finder",
+  //   title: "Movie Finder",
+  //   description:
+  //     "A React Movie Finder app using the OMDb API to search and display movies with titles, posters, and release years",
+  //   tech: ["React", "TailwindCSS", "JavaScript", "OMDb API"],
+  //   year: "2024",
+  //   link: "https://github.com/danilodev6/Movie-Finder",
+  // },
 ];
