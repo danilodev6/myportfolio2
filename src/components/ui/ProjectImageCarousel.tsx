@@ -13,7 +13,7 @@ const ProjectImageCarousel = ({ projectId, className = "" }: ProjectImageCarouse
 
   const projectImages: Record<string, string[]> = {
     "auction-app": ["/project1-1.png", "/project1-2.png", "/project1-3.png"],
-    "DEX-dapp": ["/project5-1.png", "/project5-2.png", "/project5-3.png", "/project5-4"],
+    "dex-dapp": ["/project5-1.png", "/project5-2.png", "/project5-3.png", "/project5-4"],
     "supply-chain-dapp": ["/project2-1.png", "/project2-2.png", "/project2-3.png"],
     "crowdfunding-dapp": ["/project3-1.png", "/project3-2.png", "/project3-3.png", "/project3-4.png"],
     "portfolio-3d": ["/project4-1.png", "/project4-2.png", "/project4-3.png"],
