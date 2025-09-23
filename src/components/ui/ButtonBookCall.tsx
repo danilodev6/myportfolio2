@@ -26,8 +26,8 @@ Best regards,`;
     <button
       type="button"
       onClick={handleBookCall}
-      className="group relative flex md:min-w-[280px] h-fit w-fit items-center justify-center overflow-hidden bg-stone-800 px-8 py-4 tracking-wider text-white-platinum transition-all duration-500"
-      style={{ borderRadius: "50px" }}
+      className="group relative flex md:min-w-[480px] h-fit w-fit items-center justify-center overflow-hidden bg-stone-800 px-8 py-4 md:py-8 tracking-wider text-white-platinum transition-all duration-500"
+      style={{ borderRadius: "150px" }}
     >
       {/* Background expanding effect */}
       <span className="absolute inset-0 z-10 block overflow-hidden" style={{ borderRadius: "50px" }}>
@@ -37,7 +37,7 @@ Best regards,`;
         />
       </span>
       {/* Text container */}
-      <span className="relative z-20 block overflow-hidden h-12 text-xl md:text-2xl">
+      <span className="relative z-20 block overflow-hidden h-12 text-xl md:text-4xl">
         <span className="transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full h-12 flex items-center justify-center">
           Book a call
           <svg

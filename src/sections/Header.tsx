@@ -32,7 +32,7 @@ const Header = () => {
         <motion.nav
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ delay: 2, duration: 1.8, ease: [0.76, 0, 0.24, 1] }}
         >
           <ul className="flex space-x-8 text-xl">
             {nav.map(({ href, text }) => (

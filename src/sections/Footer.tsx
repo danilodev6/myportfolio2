@@ -13,11 +13,11 @@ const Footer = () => {
       }}
       transition={{
         delay: scrolled ? 0 : 2.3,
-        duration: scrolled ? 0.2 : 0.3,
+        duration: scrolled ? 0.2 : 1.8,
         ease: scrolled ? "easeOut" : [0.76, 0, 0.24, 1],
       }}
       className="fixed bottom-0 left-0 w-full z-30 py-6 md:py-8
-                 flex items-center justify-center text-jet-black text-md"
+                 flex items-center justify-center md:justify-end md:pr-18 text-jet-black text-md"
       style={{ pointerEvents: scrolled ? "none" : "auto" }}
     >
       <p>© {new Date().getFullYear()} Danilo Zabalet. All rights reserved.</p>

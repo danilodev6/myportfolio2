@@ -4,7 +4,6 @@ import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Mesh } from "three";
 import ButtonBookCall from "@/components/ui/ButtonBookCall";
-import TextType from "@/components/ui/TextType";
 
 function RabbitModel() {
   const { scene } = useGLTF("/rabbit.glb");
@@ -93,41 +92,34 @@ const Hero = () => {
           {showContent && (
             <>
               {/* Name */}
-              <TextType
-                text={["Danilo Zabalet"]}
-                pauseDuration={1500}
-                showCursor={true}
-                cursorCharacter="|"
-                variableSpeed={{ min: 130, max: 240 }}
-                className="text-5xl md:text-8xl tracking-tight title text-jet-black"
-                textColors={["text-jet-black"]}
-                initialDelay={2000}
-              />
+              <motion.h1
+                className="text-5xl md:text-[10em] md:absolute md:top-[87%] md:left-15 tracking-tight text-jet-black font-bold"
+                initial={{ x: -1200 }}
+                animate={{ x: 0 }}
+                transition={{ delay: 0.5, duration: 2.2 }}
+              >
+                Danilo Zabalet
+              </motion.h1>
 
               {/* Subtitle */}
               <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ x: 1200 }}
+                animate={{ x: 0 }}
                 transition={{
                   delay: 0.5,
-                  duration: 0.8,
-                  ease: [0.76, 0, 0.24, 1],
+                  duration: 2.2,
                 }}
-                className="mt-6 max-w-xl text-lg md:text-xl text-stone-base"
+                className="mt-6 max-w-xl md:max-w-4xl text-lg md:text-5xl md:text-right md:absolute md:right-15 md:top-55 text-stone-base"
               >
                 I'm a full-stack developer based in Argentina, currently exploring Solidity and blockchain development.
               </motion.p>
 
               {/* Button */}
               <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  delay: 0.8,
-                  duration: 1.1,
-                  ease: [0.76, 0, 0.24, 1],
-                }}
-                className="mt-10 mb-4"
+                initial={{ x: 1200 }}
+                animate={{ x: 0 }}
+                transition={{ delay: 0.5, duration: 1.8 }}
+                className="mt-10 mb-4 md:absolute bottom-50 right-35 "
               >
                 <ButtonBookCall />
               </motion.div>
@@ -137,14 +129,10 @@ const Hero = () => {
           {/* 3D Rabbit - Absolutely positioned at bottom, hidden on mobile */}
           {!isMobile && show3D && (
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.2,
-                duration: 1.1,
-                ease: [0.76, 0, 0.24, 1],
-              }}
-              className="absolute bottom-0 left-0 right-0 h-[400px] w-full pointer-events-none"
+              initial={{ x: -1200 }}
+              animate={{ x: 0 }}
+              transition={{ delay: 0.1, duration: 1.8 }}
+              className="absolute top-10 right-95 h-[600px] w-full pointer-events-none"
             >
               <Canvas
                 camera={{

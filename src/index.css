@@ -60,8 +60,8 @@ body::-webkit-scrollbar {
 }
 
 h1 {
-  font-family: Yeseva One, sans-serif;
-  font-size: 3.2em;
+  font-family: Railway, sans-serif;
+  font-weight: 600;
   line-height: 1.1;
 }
 
