@@ -93,7 +93,7 @@ const Hero = () => {
             <>
               {/* Name */}
               <motion.h1
-                className="text-5xl md:text-[10em] md:absolute md:top-[87%] md:left-15 tracking-tight text-jet-black font-bold"
+                className="text-5xl mt-60 md:mt-0 md:text-[10em] md:absolute md:top-[87%] md:left-15 tracking-tight text-jet-black font-bold"
                 initial={{ x: -1200 }}
                 animate={{ x: 0 }}
                 transition={{ delay: 0.5, duration: 2.2 }}
@@ -133,6 +133,42 @@ const Hero = () => {
               animate={{ x: 0 }}
               transition={{ delay: 0.1, duration: 1.8 }}
               className="absolute top-10 right-95 h-[600px] w-full pointer-events-none"
+            >
+              <Canvas
+                camera={{
+                  position: [3, 1, 3],
+                  fov: 50,
+                }}
+                style={{ background: "transparent" }}
+              >
+                {/* Better lighting setup for the rabbit */}
+                <ambientLight intensity={0.6} />
+                <directionalLight position={[5, 5, 5]} intensity={1} castShadow />
+                <directionalLight position={[-5, 3, -5]} intensity={0.4} />
+
+                {/* Point light for better illumination */}
+                <pointLight position={[0, 2, 0]} intensity={0.5} color="#ffffff" />
+
+                <RabbitModel />
+
+                <OrbitControls
+                  enableZoom={false}
+                  enablePan={false}
+                  autoRotate={true}
+                  autoRotateSpeed={1}
+                  maxPolarAngle={Math.PI / 2}
+                  minPolarAngle={Math.PI / 4}
+                />
+              </Canvas>
+            </motion.div>
+          )}
+
+          {isMobile && (
+            <motion.div
+              initial={{ y: -600 }}
+              animate={{ y: 0 }}
+              transition={{ delay: 1.2, duration: 1.8 }}
+              className="absolute bottom-120 left-0 h-[400px] w-full pointer-events-none"
             >
               <Canvas
                 camera={{
