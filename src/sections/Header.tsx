@@ -20,9 +20,20 @@ const Header = () => {
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  const handleSmoothScroll = (href: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    const targetElement = document.querySelector(href);
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   return (
     <>
-      {/* DESKTOP NAV – always rendered */}
+      {/* DESKTOP NAV */}
       <motion.header
         initial={{ y: 0 }}
         animate={{ y: scrolled ? -100 : 0, opacity: scrolled ? 0 : 1 }}
@@ -40,18 +51,7 @@ const Header = () => {
                 <a
                   href={href}
                   className="relative px-8 py-3 text-jet-black font-semibold uppercase group"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const el = document.querySelector(href);
-                    if (el) {
-                      const top = el.getBoundingClientRect().top + (window.scrollY || 0);
-                      if ((window as any).customScrollTo) {
-                        (window as any).customScrollTo(top);
-                      } else {
-                        el.scrollIntoView({ behavior: "smooth" });
-                      }
-                    }
-                  }}
+                  onClick={(e) => handleSmoothScroll(href, e)}
                 >
                   <span className="relative z-10 group-hover:text-white-platinum">{text}</span>
                   <span className="absolute inset-0 bg-jet-black rounded-full scale-0 group-hover:scale-100 transition-transform duration-400 ease-out -z-10" />
@@ -62,8 +62,7 @@ const Header = () => {
         </motion.nav>
       </motion.header>
 
-      {/* HAMBURGER – always rendered */}
-
+      {/* HAMBURGER */}
       <motion.div
         initial={{ opacity: 0.5, y: -100 }}
         animate={{ opacity: 1, y: scrolled || isMobile ? 0 : -100 }}
@@ -78,6 +77,61 @@ const Header = () => {
 };
 
 export default Header;
+
+// import { motion } from "motion/react";
+// import MenuHamb from "@/components/MenuHamb";
+//
+// const Header = () => {
+//   return (
+//     <>
+//       {/* Desktop Header */}
+//       <motion.header
+//         initial={{ opacity: 0, y: -100 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ delay: 2, duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+//         className="fixed top-0 left-0 w-full z-50 py-6 md:py-8 items-center justify-center hidden md:flex"
+//       >
+//         {/* Navigation */}
+//         <nav>
+//           <ul className="flex space-x-8 text-xl">
+//             <li>
+//               <a
+//                 href="#about"
+//                 className="relative inline-block px-8 py-3 text-jet-black font-semibold uppercase tracking-wider transition-colors duration-300 z-10 group"
+//               >
+//                 <span className="relative z-10 transition-colors duration-300 group-hover:text-white">About</span>
+//                 <span className="absolute top-0 left-0 w-full h-full bg-jet-black rounded-full transform scale-0 origin-center transition-transform duration-300 group-hover:scale-100 -z-10"></span>
+//               </a>
+//             </li>
+//             <li>
+//               <a
+//                 href="#projects"
+//                 className="relative inline-block px-8 py-3 text-black font-semibold uppercase tracking-wider transition-colors duration-300 z-10 group"
+//               >
+//                 <span className="relative z-10 transition-colors duration-300 group-hover:text-white">Projects</span>
+//                 <span className="absolute top-0 left-0 w-full h-full bg-black rounded-full transform scale-0 origin-center transition-transform duration-300 group-hover:scale-100 -z-10"></span>
+//               </a>
+//             </li>
+//             <li>
+//               <a
+//                 href="#contact"
+//                 className="relative inline-block px-8 py-3 text-jet-black font-semibold uppercase tracking-wider transition-colors duration-300 z-10 group"
+//               >
+//                 <span className="relative z-10 transition-colors duration-300 group-hover:text-white">Contact</span>
+//                 <span className="absolute top-0 left-0 w-full h-full bg-jet-black rounded-full transform scale-0 origin-center transition-transform duration-300 group-hover:scale-100 -z-10"></span>
+//               </a>
+//             </li>
+//           </ul>
+//         </nav>
+//       </motion.header>
+//
+//       {/* Mobile Hamburger Menu */}
+//       <MenuHamb />
+//     </>
+//   );
+// };
+//
+// export default Header;
 
 // import { motion } from "motion/react";
 // import MenuHamb from "@/components/MenuHamb";

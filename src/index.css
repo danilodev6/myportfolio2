@@ -7,7 +7,8 @@
   font-family: "Raleway", sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  /* Remove default scroll-behavior to let our momentum scroll handle it */
+
+  /* Remove native smooth scroll - we'll handle it with JS */
   /* scroll-behavior: smooth; */
 
   color-scheme: light dark;
@@ -18,9 +19,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Hide scrollbar */
+/* Remove native smooth scrolling - we want our custom implementation */
 html {
-  /* Firefox */
+  /* scroll-behavior: smooth; */
+  /* Firefox - optional: keep scrollbar hidden if you prefer */
   scrollbar-width: none;
 }
 
@@ -30,16 +32,37 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  /* Hide scrollbar for Chrome, Safari and Opera */
+
+  /* Optional: keep scrollbar hidden */
   -ms-overflow-style: none;
   /* IE and Edge */
   scrollbar-width: none;
   /* Firefox */
 }
 
+/* Optional: keep scrollbar hidden for WebKit browsers */
 body::-webkit-scrollbar {
   display: none;
   /* Chrome, Safari and Opera */
+}
+
+/* Enhanced momentum scrolling for iOS Safari */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Keep momentum scrolling on mobile, but remove CSS smooth scroll */
+@media (max-width: 768px) {
+  body {
+    /* Enable momentum scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+}
+
+/* Remove custom scroll timing - we handle this with JS */
+@media (prefers-reduced-motion: no-preference) {
+  /* Custom smooth scroll will respect this preference */
 }
 
 @theme {

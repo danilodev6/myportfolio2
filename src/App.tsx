@@ -1,18 +1,27 @@
 import "./App.css";
-import { useMomentumScroll } from "./hooks/useMomentumScroll";
+import { useEffect } from "react";
 import About from "./sections/About";
 import { Contact } from "./sections/Contact";
 import Footer from "./sections/Footer";
 import Header from "./sections/Header";
 import Hero from "./sections/Hero";
 import { Projects } from "./sections/Projects";
+import { smoothScrollTo, smoothScrollToElement, smoothScrollToTop } from "./utils/smoothScroll";
 
 function App() {
-  useMomentumScroll({
-    friction: 0.95, // How quickly momentum dies (0.9-0.95)
-    acceleration: 0.1, // How smooth the catch-up is (0.1-0.2)
-    sensitivity: 0.1, // Scroll speed (0.1 = very slow, 0.5 = fast)
-  });
+  useEffect(() => {
+    // Make smooth scroll functions globally available
+    (window as any).customScrollTo = smoothScrollTo;
+    (window as any).customScrollToElement = smoothScrollToElement;
+    (window as any).customScrollToTop = smoothScrollToTop;
+
+    return () => {
+      // Cleanup
+      delete (window as any).customScrollTo;
+      delete (window as any).customScrollToElement;
+      delete (window as any).customScrollToTop;
+    };
+  }, []);
 
   return (
     <>
